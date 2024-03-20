@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Список доступных рабочих машин {% endblock %}
+
+{% block body %}
+    <h1> Список доступных рабочих машин </h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Memory_total</th>
+            <th>Cpu_total</th>
+            <th>Memory_available</th>
+            <th>Cpu_available</th>
+            <th>Process_list</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if workersMachine is not empty %}
+            {% for workerMachine in workersMachine %}
+                <tr>
+                    <td>{{ workerMachine.id }}</td>
+                    <td>{{ workerMachine.memoryTotal }}</td>
+                    <td>{{ workerMachine.cpuTotal }}</td>
+                    <td>{{ workerMachine.memoryAvailable }}</td>
+                    <td>{{ workerMachine.cpuAvailable }}</td>
+                    <td>
+                        {% for process in workerMachine.processesArray %}
+                            {{ process }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_worker_machine_delete', {'id':  workerMachine.id})}}"> Удалить </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="7"> Нет списка рабочих машин </td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <p><a href="{{ path('app_worker_machine_adding') }}"> Создать новую рабочую машину </a></p>
+    <p><a href="{{ path('app_main') }}"> Перейти на главную страницу </a></p>
+{% endblock %}

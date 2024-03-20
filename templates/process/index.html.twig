@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Список доступных процессов {% endblock %}
+
+{% block body %}
+    <h1> Список доступных процессов </h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Memory_required</th>
+                    <th>CPU_required</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if processes is not empty %}
+                {% for process in processes %}
+                    <tr>
+                        <td>{{ process.id }}</td>
+                        <td>{{ process.memoryRequired }}</td>
+                        <td>{{ process.cpuRequired }}</td>
+                        <td>
+                            <a href="{{ path('app_process_delete', {'id': process.id})}}"> Удалить </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4"> Нет списка процессов </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <p><a href="{{ path('app_process_adding') }}"> Создать новый процесс </a></p>
+        <p><a href="{{ path('app_main') }}"> Перейти на главную страницу </a></p>
+{% endblock %}
