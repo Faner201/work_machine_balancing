@@ -40,7 +40,7 @@ class BalancingController extends AbstractController
             ]);
         } else if (empty($this->workerMachineRep->getAllIndex())) {
             return $this->render('error/error.html.twig', [
-                'message' => 'нету рабочих машид для балансировки'
+                'message' => 'нету рабочих машин для балансировки'
             ]);
         }
 
@@ -62,7 +62,7 @@ class BalancingController extends AbstractController
             ]);
         } else if (empty($this->workerMachineRep->getAllIndex())) {
             return $this->render('error/error.html.twig', [
-                'message' => 'нету рабочих машид для балансировки'
+                'message' => 'нету рабочих машин для балансировки'
             ]);
         }
 
