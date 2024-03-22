@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\WorkerMachineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,33 +17,38 @@ class WorkerMachine
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $memoryTotal;
+    private ?int $memoryTotal;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $cpuTotal;
+    private ?int $cpuTotal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
-    private $memoryAvailable;
+    private ?float $memoryAvailable;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
-    private $cpuAvailable;
+    private ?float $cpuAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity="Process", mappedBy="machineId")
+     * @ORM\OneToMany(targetEntity="Process", mappedBy="workerMachine", orphanRemoval=true, cascade={"remove"})
      */
 
     private $processesArray;
+
+    public function __construct()
+    {
+        $this->processesArray = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,41 +79,36 @@ class WorkerMachine
         return $this;
     }
 
-    public function getMemoryAvailable(): ?int
+    public function getMemoryAvailable(): ?float
     {
         return $this->memoryAvailable;
     }
 
-    public function setMemoryAvailable(int $memoryAvailable): self
+    public function setMemoryAvailable(float $memoryAvailable): self
     {
         $this->memoryAvailable = $memoryAvailable;
 
         return $this;
     }
 
-    public function getCpuAvailable(): ?int
+    public function getCpuAvailable(): ?float
     {
         return $this->cpuAvailable;
     }
 
-    public function __construct()
-    {
-        $this->processesArray = new ArrayCollection();
-    }
-
-    public function setCpuAvailable(int $cpuAvailable): self
+    public function setCpuAvailable(float $cpuAvailable): self
     {
         $this->cpuAvailable = $cpuAvailable;
 
         return $this;
     }
 
-    public function getProcessesArray(): ArrayCollection
+    public function getProcessesArray(): Collection
     {
         return $this->processesArray;
     }
 
-    public function setProcessesArray(ArrayCollection $processesArray): void
+    public function setProcessesArray(Collection $processesArray): void
     {
         $this->processesArray = $processesArray;
     }

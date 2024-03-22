@@ -47,6 +47,35 @@ class ProcessRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return array
+     */
+    public function getAllIndex(): array
+    {
+        return $this->createQueryBuilder('p', 'p.id')
+            -> getQuery()
+            -> getArrayResult();
+    }
+
+    /**
+     * @return Process[]
+     */
+    public function sortByTypeInDesc(string $type): array
+    {
+        if ($type == 'cpu') {
+            return $this->createQueryBuilder('p')
+                ->orderBy('p.cpuRequired', 'DESC')
+                ->getQuery()
+                ->getResult();
+        }
+        else {
+            return $this->createQueryBuilder('p')
+                ->orderBy('p.memoryRequired', 'DESC')
+                ->getQuery()
+                ->getResult();
+        }
+    }
+
     // /**
     //  * @return Process[] Returns an array of Process objects
     //  */

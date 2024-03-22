@@ -59,6 +59,12 @@ class ProcessController extends AbstractController
     public function deleteProcess(int $id, EntityManagerInterface $em): Response
     {
         $process = $em->getRepository(Process::class)->find($id);
+        $workerMachine = $process->getWorkerMachine();
+        if (!is_null($workerMachine)) {
+            $workerMachine->setCpuAvailable($workerMachine->getCpuAvailable() + $process->getCpuRequired());
+            $workerMachine->setMemoryAvailable($workerMachine->getMemoryAvailable() + $process->getMemoryRequired());
+            $em->persist($workerMachine);
+        }
         $em->remove($process);
         $em->flush();
         return $this->redirectToRoute('app_process_index', [], Response::HTTP_SEE_OTHER);

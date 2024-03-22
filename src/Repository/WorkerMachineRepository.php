@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Process;
 use App\Entity\WorkerMachine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -44,6 +45,36 @@ class WorkerMachineRepository extends ServiceEntityRepository
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();
+        }
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getAllIndex(): array
+    {
+        return $this->createQueryBuilder('worker_machine', 'worker_machine.id')
+            -> getQuery()
+            -> getArrayResult();
+    }
+
+    /**
+     * @return WorkerMachine[]
+     */
+    public function sortByTypeInAsc(string $type): array
+    {
+        if ($type == 'cpu') {
+            return $this->createQueryBuilder('w')
+                ->orderBy('w.cpuAvailable', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
+        else {
+            return $this->createQueryBuilder('w')
+                ->orderBy('w.memoryAvailable', 'ASC')
+                ->getQuery()
+                ->getResult();
         }
     }
 

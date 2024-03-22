@@ -10,6 +10,7 @@
                     <th>Id</th>
                     <th>Memory_required</th>
                     <th>CPU_required</th>
+                    <th>MachineId</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -20,6 +21,13 @@
                         <td>{{ process.id }}</td>
                         <td>{{ process.memoryRequired }}</td>
                         <td>{{ process.cpuRequired }}</td>
+                        <td>
+                            {% if process.workerMachine is not null %}
+                                {{ process.workerMachine.id }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="{{ path('app_process_delete', {'id': process.id})}}"> Удалить </a>
                         </td>

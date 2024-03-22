@@ -12,7 +12,7 @@
             <th>Cpu_total</th>
             <th>Memory_available</th>
             <th>Cpu_available</th>
-            <th>Process_list</th>
+            <th>ProcessId_list</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -27,7 +27,7 @@
                     <td>{{ workerMachine.cpuAvailable }}</td>
                     <td>
                         {% for process in workerMachine.processesArray %}
-                            {{ process }}
+                            {{ process.id }}
                         {% endfor %}
                     </td>
                     <td>

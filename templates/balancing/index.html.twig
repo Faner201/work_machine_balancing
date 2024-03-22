@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Результат балансировки {% endblock %}
+
+{% block body %}
+    <h1> Результат балансировки </h1>
+        <div class="block">
+            <p>
+                {{ message }}
+            </p>
+        </div>
+        <div>
+            <p><a href="{{ path('app_main') }}"> Перейти на главную страницу </a></p>
+        </div>
+{% endblock %}

@@ -20,17 +20,18 @@ class Process
     /**
      * @ORM\Column(type="integer")
      */
-    private $memoryRequired;
+    private ?int $memoryRequired;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $cpuRequired;
+    private ?int $cpuRequired;
 
     /**
      * @ORM\ManyToOne(targetEntity="WorkerMachine", inversedBy="processesArray")
+     * @ORM\JoinColumn(name="machine_id",referencedColumnName="id",nullable=true)
      */
-    private $machineId;
+    private ?WorkerMachine $workerMachine;
 
     public function getId(): ?int
     {
@@ -61,15 +62,13 @@ class Process
         return $this;
     }
 
-    public function getMachineId(): ?int
+    public function getWorkerMachine(): ?WorkerMachine
     {
-        return $this->machineId;
-    }
-    public function setMachineId(int $machineId): self
-    {
-        $this->machineId = $machineId;
-
-        return  $this;
+        return $this->workerMachine;
     }
 
+    public function setWorkerMachine(?WorkerMachine $workerMachine): void
+    {
+        $this->workerMachine = $workerMachine;
+    }
 }
