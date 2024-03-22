@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Общий список {% endblock %}
+
+{% block body %}
+
+    <h1> Общий список рабочих машин и процессов </h1>
+    <div class="row">
+        <div class="column">
+            <table>
+                <caption> Таблица рабочих машин </caption>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Memory_total</th>
+                    <th>Cpu_total</th>
+                    <th>Memory_available</th>
+                    <th>Cpu_available</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if workersMachine is not empty %}
+                    {% for workerMachine in workersMachine %}
+                        <tr>
+                            <td>{{ workerMachine.id }}</td>
+                            <td>{{ workerMachine.memoryTotal }}</td>
+                            <td>{{ workerMachine.cpuTotal }}</td>
+                            <td>{{ workerMachine.memoryAvailable }}</td>
+                            <td>{{ workerMachine.cpuAvailable }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5"> Нет списка рабочих машин </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="column">
+            <table>
+                <caption> Таблица процессов </caption>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Memory_required</th>
+                    <th>CPU_required</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if processes is not empty %}
+                    {% for process in processes %}
+                        <tr>
+                            <td>{{ process.id }}</td>
+                            <td>{{ process.memoryRequired }}</td>
+                            <td>{{ process.cpuRequired }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3"> Нет списка процессов </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p><a href="{{ path('app_worker_machine_index') }}"> Перейти на страницу рабочих машин </a></p>
+    <p><a href="{{ path('app_process_index') }}"> Перейти на страницу процессов </a></p>
+    <p><a href="{{ path('app_balancing_cpu') }}"> Перейти к балансировки по процессору </a></p>
+    <p><a href="{{ path('app_balancing_memory') }}"> Перейти к балансировки по памяти </a></p>
+{% endblock %}

@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\WorkerMachine;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+
+class WorkerMachineType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('memoryTotal', null, array(
+                'constraints' => new Assert\Positive(
+                    array(
+                        'message' => 'Данное значение меньше или равно 0, измените это'
+                    )
+                )
+            ))
+            ->add('cpuTotal', null,array(
+                'constraints' => new Assert\Positive(
+                    array(
+                        'message' => 'Данное значение меньше или равно 0, измените это'
+                    )
+                )
+            ))
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => WorkerMachine::class,
+        ]);
+    }
+}

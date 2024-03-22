@@ -1,0 +1,9 @@
+{% extends'base.html.twig' %}
+
+{% block title %} Создание нового процесса {% endblock %}
+
+{% block body %}
+    {{ include('form/form_adding.html.twig', {'button_label': 'Создание'}) }}
+
+    <a href="{{ path('app_worker_machine_index') }}"> Вернитесь к списку процессов</a>
+{% endblock %}
