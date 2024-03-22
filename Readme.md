@@ -1,2 +1,6 @@
-# This repository is for obtaining an apprenticeship at Farpost.
-### What the application hierarchy looks like:
+## Данный репозиторий направлен на прохождение тестового задания для полечения летней практики в компанию "Фарпост"
+### База данных подключается в файле **.env.local**:
+
+`DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=11&charset=utf8"`
+### *Идея, вложенная в реализацию балансировщика стал жадный алгоритм.*
+Сделанны две ручки, по которым пользователь сам выбирает, по какой целевой переменно производить балансировку.
